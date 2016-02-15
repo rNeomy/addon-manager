@@ -1,0 +1,26 @@
+{
+  "title": "Addons Manager with Profiling",
+  "name": "iamanager",
+  "id": "dfg23tyjJiId@jetpack",
+  "version": "0.1.0",
+  "description": "Manage your addons on multiple profiles from a toolbar panel",
+  "main": "./lib/background.js",
+  "author": "Richard Neomy",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "Mozilla Public License 2.0",
+  "keywords": [
+    "jetpack"
+  ],
+  "permissions": {
+    "private-browsing": true,
+    "cross-domain-content": ["file:///"]
+  },
+  "preferences": [{
+    "name": "openOptions",
+    "title": "Open Options Page",
+    "label": "Options",
+    "type": "control"
+  }]
+}

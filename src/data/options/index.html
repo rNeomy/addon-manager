@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+  <title>Options - Addon Manager with Profiler</title>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="../icons/16.png">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body class="flex">
+  <div id="header" class="flex">
+    <div style="">
+      <span type=title>Addon Manager with Profiler</span>
+      <br/>
+      <span class="note" type=inshort>Manage your addons on multiple profiles from a toolbar panel</span>
+    </div>
+  </div>
+
+  <div id="content" class="flex">
+    <table width="100%">
+      <tr>
+        <td>Profiles</td>
+        <td>
+          <div class="box">
+            <span>List of profiles:</span> <input data-pref="options.profiles" type="text" ></input>
+          </div>
+          <p class="note">Comma separated list of profiles. The first character of the profile name is shown in the toolbar's badge</p>
+        </td>
+      </tr>
+      <tr>
+        <td>Popup</td>
+        <td>
+          <span>Popup width is (in pixels):</span> <input data-pref="popup.width" type="number" min="400" max="800"></input>
+          <p class="note">Popup width range is 400px to 800px</p>
+          <p class="spacer"></p>
+          <span>Popup height is (in pixels):</span> <input data-pref="popup.height" type="number" min="300" max="600"></input>
+          <p class="note">Popup height range is 300px to 600px</p>
+          <p class="spacer"></p>
+        </td>
+      </tr>
+      <tr>
+        <td>Misc</td>
+        <td>
+          <label>
+            <span>Show welcome page on upgrade:</span> <input type="checkbox" data-pref="welcome.show">
+          </label>
+          <p class="note">If this option is checked, the extension displays welcome page after each upgrade to notify you about the recent changes.</p>
+          <p class="spacer"></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script type='text/javascript' src="shadow_index.js"></script>
+</body>
+</html>
