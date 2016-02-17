@@ -151,6 +151,7 @@ tr[data-locked=true] {
   height: 30px;
   line-height: 30px;
   padding: 0 10px;
+  color: #fff;
 }
 #links a,
 #links a:visited {

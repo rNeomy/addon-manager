@@ -82,11 +82,20 @@ app.panel.receive('open', function (id) {
     app.tab.open('http://add0n.com/addon-manager.html');
   }
   if (id === 'open-support') {
-    app.tab.open('http://add0n.com/addon-manager.html');
+    app.tab.open('https://github.com/rNeomy/addon-manager/issues');
   }
   if (id === 'open-options') {
     app.tab.openOptions();
   }
+  if (id === 'open-addons') {
+    app.tab.openAddons();
+  }
+  if (id === 'cmd-copy') {
+    getAll(function (arr) {
+      app.runtime.copy(arr.map(addon => `name: ${addon.name},\nid: ${addon.id},\nstatus: ${addon.enabled}`).join('\n\n'));
+    });
+  }
+
   app.panel.hide();
 });
 
@@ -110,7 +119,7 @@ app.startup(function () {
   if (app.version() !== version && config.welcome.show) {
     app.timer.setTimeout(function () {
       app.tab.open(
-        'http://add0n.com/turbo-download-manager.html?v=' + app.version() +
+        'http://add0n.com/addon-manager.html?v=' + app.version() +
         (version ? '&p=' + version + '&type=upgrade' : '&type=install')
       );
       config.welcome.version = app.version();

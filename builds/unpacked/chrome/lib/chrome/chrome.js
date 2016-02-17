@@ -15,25 +15,49 @@ app.button = {
   }
 };
 
-app.tab = {
-  open: (url) => chrome.tabs.create({
-    url,
-    active: true
-  }),
-  openOptions: function () {
+app.tab = (function () {
+  function close (url, callback) {
     chrome.tabs.query({}, function (tabs) {
       tabs.forEach(function (tab) {
-        if (tab.url === chrome.extension.getURL('data/options/index.html')) {
+        if (tab.url === url) {
           chrome.tabs.remove(tab.id);
         }
       });
-    });
-    chrome.tabs.create({
-      url: chrome.extension.getURL('data/options/index.html'),
-      active: true
+      callback();
     });
   }
+  return {
+    open: (url) => chrome.tabs.create({
+      url,
+      active: true
+    }),
+    openAddons: function () {
+      close('chrome://extensions/', () => chrome.tabs.create({
+        url: 'chrome://extensions/',
+        active: true
+      }));
+    },
+    openOptions: function () {
+      close(chrome.extension.getURL('data/options/index.html'), () => chrome.tabs.create({
+        url: chrome.extension.getURL('data/options/index.html'),
+        active: true
+      }));
+    }
+  };
+})();
+
+app.runtime = {
+  copy: function (text) {
+    let input = document.createElement('textarea');
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('Copy');
+    document.body.removeChild(input);
+  }
 };
+
+app.version = () => chrome[chrome.runtime && chrome.runtime.getManifest ? 'runtime' : 'extension'].getManifest().version;
 
 app.panel = (function () {
   chrome.runtime.onMessage.addListener(function (message, sender) {

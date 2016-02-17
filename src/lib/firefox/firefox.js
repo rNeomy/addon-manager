@@ -11,6 +11,7 @@ var array = require('sdk/util/array');
 var unload = require('sdk/system/unload');
 var tabs = require('sdk/tabs');
 var timers = require('sdk/timers');
+var clipboard = require('sdk/clipboard');
 var {all, defer, resolve}  = require('sdk/core/promise');
 
 var config = require('../config');
@@ -95,18 +96,27 @@ exports.storage = {
   }
 };
 
-exports.tab = {
-  open: tabs.open,
-  openOptions: function () {
-    let url = self.data.url('options/index.html');
+exports.tab = (function () {
+  function close (url) {
     for each (let tab in tabs) {
       if (tab.url === url) {
         tab.close();
       }
     }
-    tabs.open(url);
   }
-};
+  return {
+    open: tabs.open,
+    openAddons: function () {
+      close('about:addons');
+      tabs.open('about:addons');
+    },
+    openOptions: function () {
+      let url = self.data.url('options/index.html');
+      close(url);
+      tabs.open(url);
+    }
+  };
+})();
 
 var toResource = (function () {
   let cache = {};
@@ -192,6 +202,12 @@ exports.management = {
     });
   }
 };
+
+exports.runtime = {
+  copy: clipboard.set
+};
+
+exports.version = () => self.version;
 
 exports.options = (function () {
   var workers = [], callbacks = [];
