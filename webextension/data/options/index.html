@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+  <title>Options - Addon Manager with Profiler</title>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    input[type=text] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    body {
+      min-width: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; align-items: center;">
+    List of profiles&nbsp;<input type="text" id="profiles">
+  </div>
+  <p>Comma-separated list of profiles. Each profile can save a new state for all extensions. Define multiple profiles to enable and disable extensions in bulk.</p>
+  <div id="explore"></div>
+  <p>
+    <input type="button" id="support" value="Support Development">
+    <input type="button" id="reset" value="Reset Settings"> - <input type="button" id="save" value="Save">
+    <span id="toast"></span>
+  </p>
+  <script src="index.js"></script>
+  <script async src="matched.js"></script>
+</body>
+</html>

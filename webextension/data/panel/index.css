@@ -1,0 +1,155 @@
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  max-height: 600px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+body, table, button {
+  font-size: 13px;
+  font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+  color: #444;
+}
+table {
+  vertical-align: middle;
+  border-collapse: collapse;
+  width: 100%;
+}
+h1 {
+  font-size: 100%;
+  margin: 0 5px 5px 0;
+  display: inline-block;
+}
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+
+input[type=button] {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 5px 3px;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+}
+input[type=button]:active {
+  color: #888;
+}
+select {
+  outline: none;
+}
+
+#profiles {
+  height: 50px;
+  margin: 0 10px;
+  width: calc(100% - 20px);
+}
+#profiles input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#addons {
+  overflow: auto;
+}
+#addons tr {
+  height: 50px;
+}
+#addons tr:first-child {
+  display: none;
+}
+#addons tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.05);
+}
+#addons td:first-child {
+  width: 52px;
+  background: url(default.png) center center no-repeat;
+  background-size: 32px 32px;
+}
+#addons tr[data-enabled=false] {
+  opacity: 0.7;
+}
+#addons tr[data-enabled=false] td:first-child {
+  filter: contrast(80%) grayscale(100%);
+}
+#addons td:last-child {
+  padding-right: 10px;
+}
+#addons tr[data-enabled=false] [data-type=name] {
+  color: #73777a;
+}
+#addons [data-type=description] {
+  font-size: 90%;
+  color: #73777a;
+}
+#addons [data-type="version"] {
+  font-size: 80%;
+}
+
+#loader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+body[data-status=loading] #loader {
+  display: flex;
+  flex: 1;
+  background: url(loading.gif) center center no-repeat;
+}
+
+.button {
+  cursor: pointer;
+}
+.button:before {
+  font-family: "fontello";
+  margin-right: 5px;
+}
+tr[data-enabled=false] .button:before {
+  content: '\e800';
+}
+[data-string] {
+  pointer-events: none;
+}
+tr[data-enabled=false] [data-string=enabled] {
+  display: none;
+}
+tr[data-enabled=true] .button:before {
+  content: '\e801';
+}
+tr[data-enabled=true] [data-string=disabled] {
+  display: none;
+}
+tr[data-locked=true] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#links {
+  direction: rtl;
+  background-color: rgba(0, 0, 0, .05);
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  color: #444;
+  border-top: solid 1px rgba(0, 0, 0, 0.05);
+}
+#links a,
+#links a:visited {
+  color: #444;
+}
