@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Options Page :: Extension Manager with Profiles</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <div style="display: flex; align-items: center;">
+    List of profiles&nbsp;<input type="text" id="profiles">
+  </div>
+  <p>Comma-separated list of profiles. Each profile can save a new state for all extensions. Define multiple profiles to enable and disable extensions in bulk.</p>
+  <div id="explore"></div>
+  <p>
+    <input type="button" id="support" value="Support Development">
+    <input type="button" id="reset" value="Reset Settings"> - <input type="button" id="save" value="Save Options">
+    <span id="toast"></span>
+  </p>
+  <script src="index.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
   "name": "Extension Manager with Profiles",
   "description": "Manage your addons on multiple profiles from a toolbar panel",
   "author": "Richard Neomy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "manifest_version": 2,
   "permissions": [
     "storage",
