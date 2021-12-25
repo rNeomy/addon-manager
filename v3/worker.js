@@ -22,7 +22,8 @@ chrome.storage.onChanged.addListener(prefs => {
   chrome.runtime.onStartup.addListener(onStartup);
   chrome.runtime.onInstalled.addListener(onStartup);
 }
-// Save the default profile
+
+// Save the default profile on first run
 chrome.runtime.onInstalled.addListener(chrome.management.getAll(apps => chrome.storage.local.set({
   'profile-Default': JSON.stringify(apps.reduce((p, {id, enabled}) => {
     p[id] = enabled;

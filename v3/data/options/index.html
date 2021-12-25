@@ -11,7 +11,17 @@
     List of profiles&nbsp;<input type="text" id="profiles">
   </div>
   <p>Comma-separated list of profiles. Each profile can save a new state for all extensions. Define multiple profiles to enable and disable extensions in bulk.</p>
+
+  <div class="two" style="pointer-events: none; opacity: 0.4;">
+    <input type="checkbox" id="sync">
+    <label for="sync">Use your browser sync feature to update profiles across multiple devices</label>
+  </div>
+
   <div id="explore"></div>
+  <p>
+    <input type="button" id="import" value="Import Settings">
+    <input type="button" id="export" value="Export Settings">
+  </p>
   <p>
     <input type="button" id="support" value="Support Development">
     <input type="button" id="reset" value="Reset Settings"> - <input type="button" id="save" value="Save Options">
