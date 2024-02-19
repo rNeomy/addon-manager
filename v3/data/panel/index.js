@@ -1,15 +1,18 @@
 'use strict';
 
-const select = document.querySelector('select');
+/* exclude themes */
+chrome.management.getAll = new Proxy(chrome.management.getAll, {
+  apply(target, self, args) {
+    const c = args[0];
+    args[0] = apps => {
+      c(apps.filter(a => a.type !== 'theme'));
+    };
 
-const copy = value => {
-  const input = document.createElement('textarea');
-  input.value = value;
-  document.body.appendChild(input);
-  input.select();
-  document.execCommand('Copy');
-  document.body.removeChild(input);
-};
+    return Reflect.apply(target, self, args);
+  }
+});
+
+const select = document.querySelector('select');
 
 const save = () => new Promise(resolve => chrome.management.getAll(apps => chrome.storage.local.set({
   ['profile-' + select.value]: JSON.stringify(apps.reduce((p, {id, enabled}) => {
@@ -55,9 +58,13 @@ document.addEventListener('click', ({target}) => {
     }
     else if (link === 'cmd-copy') {
       chrome.management.getAll(apps => {
-        const value = apps.map(addon => `name: ${addon.name},\nid: ${addon.id},\nstatus: ${addon.enabled}`).join('\n\n');
-        copy(value);
-        window.close();
+        const value = apps.map(addon => `name: ${addon.name},
+id: ${addon.id},
+status: ${addon.enabled}`).join('\n\n');
+        navigator.clipboard.writeText(value).then(() => window.close()).catch(e => {
+          console.error(e);
+          alert(e.message);
+        });
       });
     }
     else if (link === 'disable-all' || link === 'enable-all') {
@@ -126,10 +133,12 @@ chrome.management.getAll(apps => chrome.storage.local.get({
   }
 
   const name = chrome.runtime.getManifest().name;
-  for (const app of apps.sort((a, b) => a.name.localeCompare(b.name))) {
+  apps.sort((a, b) => a.name.localeCompare(b.name));
+  for (const app of apps) {
     if (app.name === name) {
       continue;
     }
+
     const tr = document.querySelector('#addons tr').cloneNode(true);
     tr.querySelector('[data-type=name]').textContent = app.name;
     tr.querySelector('[data-type=version]').textContent = app.version;
