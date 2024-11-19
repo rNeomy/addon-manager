@@ -4,9 +4,11 @@ const toast = document.getElementById('toast');
 
 const init = () => chrome.storage.local.get({
   profiles: ['Default', 'A - Profile', 'B - Profile', 'C - Profile'],
+  ignored: [],
   sync: false
 }, prefs => {
-  document.getElementById('profiles').value = prefs.profiles.join(', ');
+  document.getElementById('profiles').value = prefs.profiles.join(',\n');
+  document.getElementById('ignored').value = prefs.ignored.join(',\n');
   document.getElementById('sync').checked = prefs.sync;
 });
 init();
@@ -14,8 +16,10 @@ init();
 document.getElementById('save').addEventListener('click', () => {
   const profiles = [
     'Default',
-    ...document.getElementById('profiles').value.split(/\s*,\s*/).map(s => s.trim())
+    ...document.getElementById('profiles').value.replace(/\n/g, '').split(/\s*,\s*/).map(s => s.trim())
   ].filter((s, i, l) => s && l.indexOf(s) === i);
+  const ignored = document.getElementById('ignored').value.replace(/\n/g, '').split(/\s*,\s*/).map(s => s.trim())
+    .filter((s, i, l) => s && l.indexOf(s) === i);
   chrome.storage.local.get({
     profiles: ['Default', 'A - Profile', 'B - Profile', 'C - Profile'],
     index: 'Default'
@@ -27,6 +31,7 @@ document.getElementById('save').addEventListener('click', () => {
     }
     chrome.storage.local.set({
       profiles,
+      ignored,
       index: profiles.indexOf(prefs.index) === -1 ? 'Default' : prefs.index,
       sync: document.getElementById('sync').checked
     }, () => {

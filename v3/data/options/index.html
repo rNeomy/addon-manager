@@ -7,24 +7,36 @@
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-  <div style="display: flex; align-items: center;">
-    List of profiles&nbsp;<input type="text" id="profiles">
+  <p class="warning">Be sure to click the "Save Options" button at the bottom of this page after making your changes.</p>
+  <div id="profiles-container">
+    <h3>List of profiles</h3>
+    <textarea id="profiles" rows="5"></textarea>
   </div>
-  <p>Comma-separated list of profiles. Each profile can save a new state for all extensions. Define multiple profiles to enable and disable extensions in bulk.</p>
+  <p class="note">A comma-separated list of profiles. Each profile stores a unique state for all extensions. Use multiple profiles to manage extensions in bulk, enabling or disabling them as needed.</p>
+  <p class="note">Navigate to chrome://extensions/shortcuts to assign a custom shortcut for each profile.</p>
+
+  <div id="ignored-container">
+    <h3>List of ignored Extensions</h3>
+    <textarea id="ignored" rows="5"></textarea>
+  </div>
+  <p class="note">A comma-separated list of extension IDs to exclude. The enable or disable state of these extensions will remain unchanged.</p>
+  <p class="note">To find an extension id, press the "Details to Clipboard" button on the popup interface of this extension.</p>
 
   <div class="two" style="pointer-events: none; opacity: 0.4;">
     <input type="checkbox" id="sync">
     <label for="sync">Use your browser sync feature to update profiles across multiple devices</label>
   </div>
 
-  <div id="explore"></div>
   <p>
     <input type="button" id="import" value="Import Settings">
     <input type="button" id="export" value="Export Settings">
   </p>
   <p>
     <input type="button" id="support" value="Support Development">
-    <input type="button" id="reset" value="Reset Settings"> - <input type="button" id="save" value="Save Options">
+    <input type="button" id="reset" value="Reset Settings">
+  </p>
+  <p>
+    <input type="button" id="save" value="Save Options">
     <span id="toast"></span>
   </p>
   <script src="index.js"></script>

@@ -5,7 +5,11 @@ chrome.management.getAll = new Proxy(chrome.management.getAll, {
   apply(target, self, args) {
     const c = args[0];
     args[0] = apps => {
-      c(apps.filter(a => a.type !== 'theme'));
+      chrome.storage.local.get({
+        ignored: []
+      }, prefs => {
+        c(apps.filter(a => a.type !== 'theme' && prefs.ignored.includes(a.id) === false));
+      });
     };
 
     return Reflect.apply(target, self, args);

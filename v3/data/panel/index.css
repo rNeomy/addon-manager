@@ -1,17 +1,25 @@
+:root {
+  --fg: light-dark(#444, #e3e3e3);
+  --fg-alt: light-dark(#73777a, #979797);
+  --bg: light-dark(#fff, #202124);
+  --bg-alt: light-dark(rgba(0, 0, 0, 0.05), #333644);
+}
 html {
   margin: 0;
   padding: 0;
   height: 100%;
+  color-scheme: light dark;
 }
 body {
   font-family: sans-serif;
   margin: 0;
-  background-color: #fff;
+  background-color: var(--bg);
   width: 600px;
   max-height: 600px;
   min-height: 300px;
   display: flex;
   flex-direction: column;
+  scrollbar-color: var(--bg-alt) var(--bg);
 }
 
 body,
@@ -20,7 +28,7 @@ button {
   font-size: 14px;
   line-height: 1.5;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  color: #444;
+  color: var(--fg);
 }
 table {
   vertical-align: middle;
@@ -42,10 +50,12 @@ a {
 select,
 input[type=button] {
   border: none;
-  padding: 5px 3px;
+  padding: 8px 10px;
   margin: 0;
   cursor: pointer;
   outline: none;
+  color: var(--fg);
+  background-color: var(--bg);
 }
 input[type=button]:active {
   color: #888;
@@ -56,10 +66,10 @@ select {
 
 #profiles {
   display: grid;
-  grid-template-columns: min-content 1fr repeat(5, min-content);
+  grid-template-columns: min-content 1fr repeat(3, min-content);
   padding: 10px;
   grid-gap: 5px;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--bg-alt);
   align-items: center;
 }
 
@@ -77,7 +87,7 @@ select {
 }
 #addons td:first-child {
   width: 52px;
-  background: url(default.png) center center no-repeat;
+  background: url("default.png") center center no-repeat;
   background-size: 32px 32px;
 }
 #addons tr[data-enabled=false] {
@@ -90,11 +100,11 @@ select {
   padding-right: 10px;
 }
 #addons tr[data-enabled=false] [data-type=name] {
-  color: #73777a;
+  color: var(--fg-alt);
 }
 #addons [data-type=description] {
   font-size: 90%;
-  color: #73777a;
+  color: var(--fg-alt);
   display: block;
   padding-bottom: 5px;
 }
@@ -113,7 +123,7 @@ select {
 body[data-status=loading] #loader {
   display: flex;
   flex: 1;
-  background: url(loading.gif) center center no-repeat;
+  background: url("loading.gif") center center no-repeat;
 }
 
 .button {
@@ -144,14 +154,14 @@ tr[data-locked=true] {
 }
 
 #links {
-  background-color: rgba(0, 0, 0, .05);
+  background-color: var(--bg-alt);
   padding: 10px;
-  color: #444;
+  color: var(--fg);
   display: flex;
   gap: 5px;
   flex-direction: row-reverse;
 }
 #links a,
 #links a:visited {
-  color: #444;
+  color: var(--fg);
 }

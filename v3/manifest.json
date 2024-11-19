@@ -2,7 +2,7 @@
   "name": "Extension Manager with Profiles",
   "description": "__MSG_description__",
   "default_locale": "en",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "manifest_version": 3,
   "permissions": [
     "storage",
@@ -27,7 +27,34 @@
     "256": "/data/icons/256.png"
   },
   "commands": {
-    "_execute_action": {}
+    "_execute_action": {},
+    "switch-to-profile-1": {
+      "description": "Switch to Profile 1 (Default)"
+    },
+    "switch-to-profile-2": {
+      "description": "Switch to Profile 2"
+    },
+    "switch-to-profile-3": {
+      "description": "Switch to Profile 3"
+    },
+    "switch-to-profile-4": {
+      "description": "Switch to Profile 4"
+    },
+    "switch-to-profile-5": {
+      "description": "Switch to Profile 5"
+    },
+    "switch-to-profile-6": {
+      "description": "Switch to Profile 6"
+    },
+    "switch-to-profile-7": {
+      "description": "Switch to Profile 7"
+    },
+    "switch-to-profile-8": {
+      "description": "Switch to Profile 8"
+    },
+    "switch-to-profile-9": {
+      "description": "Switch to Profile 9"
+    }
   },
   "offline_enabled": true
 }
