@@ -1,6 +1,8 @@
 :root {
   --fg: light-dark(#444, #e3e3e3);
   --fg-alt: light-dark(#73777a, #979797);
+  --pin: light-dark(#73777a, #979797);
+  --pin-alt: light-dark(#0092ff, #0092ff);
   --bg: light-dark(#fff, #202124);
   --bg-alt: light-dark(rgba(0, 0, 0, 0.05), #333644);
 }
@@ -95,7 +97,8 @@ select {
   background: url("default.png") center center no-repeat;
   background-size: 32px 32px;
 }
-#addons tr[data-enabled=false] {
+#addons tr[data-enabled=false] td:nth-child(2),
+#addons tr[data-enabled=false] td:nth-child(4) {
   opacity: 0.7;
 }
 #addons tr[data-enabled=false] td:first-child {
@@ -134,11 +137,11 @@ body[data-status=loading] #loader {
 .button {
   cursor: pointer;
 }
-.button::before {
+.button::after {
   font-family: "fontello";
-  margin-right: 5px;
+  margin-left: 10px;
 }
-tr[data-enabled=false] .button::before {
+tr[data-enabled=false] .button::after {
   content: '\e800';
 }
 [data-string] {
@@ -147,7 +150,7 @@ tr[data-enabled=false] .button::before {
 tr[data-enabled=false] [data-string=enabled] {
   display: none;
 }
-tr[data-enabled=true] .button::before {
+tr[data-enabled=true] .button::after {
   content: '\e801';
 }
 tr[data-enabled=true] [data-string=disabled] {
@@ -175,4 +178,18 @@ footer a:visited {
 }
 footer a:hover {
   text-decoration: underline;
+}
+
+.pin {
+  width: 32px;
+  text-align: center;
+  align-items: center;
+  fill: var(--pin);
+}
+.pin svg {
+  pointer-events: none;
+  margin-top: 10px;
+}
+tr[data-pinned=true] .pin svg {
+  fill: var(--pin-alt);
 }

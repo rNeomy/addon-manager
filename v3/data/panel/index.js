@@ -32,7 +32,28 @@ const update = (id, enabled) => {
   }
 };
 document.addEventListener('click', ({target}) => {
-  if (target.closest('[data-id]')) {
+  if (target.dataset.type === 'pin') {
+    const parent = target.closest('[data-id]');
+    const id = parent.dataset.id;
+
+    if (parent.dataset.pinned === 'true') {
+      parent.dataset.pinned = false;
+      chrome.storage.local.get({
+        pinned: []
+      }).then(prefs => chrome.storage.local.set({
+        pinned: prefs.pinned.filter(s => s !== id)
+      }));
+    }
+    else {
+      parent.dataset.pinned = true;
+      chrome.storage.local.get({
+        pinned: []
+      }).then(prefs => chrome.storage.local.set({
+        pinned: [id, ...prefs.pinned].filter((s, i, l) => s && l.indexOf(s) === i)
+      }));
+    }
+  }
+  else if (target.closest('[data-id]')) {
     const parent = target.closest('[data-id]');
     const id = parent.dataset.id;
     chrome.management.get(id, info => {
@@ -125,7 +146,8 @@ select.addEventListener('change', e => {
 // init
 chrome.management.getAll(apps => chrome.storage.local.get({
   index: 'Default',
-  profiles: ['Default', 'A - Profile', 'B - Profile', 'C - Profile']
+  profiles: ['Default', 'A - Profile', 'B - Profile', 'C - Profile'],
+  pinned: []
 }, prefs => {
   document.body.dataset.status = 'loaded';
   for (const profile of prefs.profiles) {
@@ -137,7 +159,22 @@ chrome.management.getAll(apps => chrome.storage.local.get({
   }
 
   const name = chrome.runtime.getManifest().name;
-  apps.sort((a, b) => a.name.localeCompare(b.name));
+  apps.sort((a, b) => {
+    const ap = prefs.pinned.includes(a.id);
+    const bp = prefs.pinned.includes(b.id);
+
+    if (ap && bp) {
+      return a.name.localeCompare(b.name);
+    }
+    if (ap && !bp) {
+      return -1;
+    }
+    if (bp && !ap) {
+      return +1;
+    }
+
+    return a.name.localeCompare(b.name);
+  });
   for (const app of apps) {
     if (app.name === name) {
       continue;
@@ -149,6 +186,7 @@ chrome.management.getAll(apps => chrome.storage.local.get({
     tr.querySelector('[data-type=description]').textContent = app.description;
     tr.dataset.enabled = app.enabled;
     tr.dataset.locked = !app.mayDisable;
+    tr.dataset.pinned = prefs.pinned.includes(app.id);
     tr.dataset.id = app.id;
     (app.icons || []).sort((a, b) => b.size - a.size).slice(0, 1).forEach(o => {
       tr.querySelector('td').style['background-image'] = 'url("' + o.url + '")';
