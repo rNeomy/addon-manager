@@ -32,7 +32,7 @@ const update = (id, enabled) => {
   }
 };
 document.addEventListener('click', ({target}) => {
-  if (target.classList.contains('button')) {
+  if (target.closest('[data-id]')) {
     const parent = target.closest('[data-id]');
     const id = parent.dataset.id;
     chrome.management.get(id, info => {

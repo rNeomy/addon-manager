@@ -60,6 +60,9 @@ input[type=button] {
 input[type=button]:active {
   color: #888;
 }
+input[type=button]:disabled {
+  opacity: 0.5;
+}
 select {
   outline: none;
 }
@@ -78,6 +81,8 @@ select {
 }
 #addons tr {
   height: 50px;
+  cursor: pointer;
+  user-select: none;
 }
 #addons tr:first-child {
   display: none;
@@ -153,15 +158,21 @@ tr[data-locked=true] {
   pointer-events: none;
 }
 
-#links {
+footer {
+  font-size: 12px;
   background-color: var(--bg-alt);
   padding: 10px;
   color: var(--fg);
-  display: flex;
-  gap: 5px;
-  flex-direction: row-reverse;
+  display: grid;
+  grid-gap: 2ch;
+  grid-template-columns: min-content min-content min-content 1fr min-content;
+  white-space: nowrap;
+  align-items: center;
 }
-#links a,
-#links a:visited {
+footer a,
+footer a:visited {
   color: var(--fg);
+}
+footer a:hover {
+  text-decoration: underline;
 }
